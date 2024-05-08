@@ -309,6 +309,20 @@ struct Preprocessor {
 
 	
 		sparse_csr2.load_reorderedCSR(spp2, reordered_rows2, 256, spp3);
+
+
+//PAOLO'S PRINT
+//***********************************************************************************************
+//***********************************************************************************************
+//***********************************************************************************************
+	    std::cout << "REORDERED MATRIX: ";
+	    std::copy(reordered_rows2.begin(), reordered_rows2.end(), std::ostream_iterator<int>(std::cout, " "));
+	    std::cout << std::endl;
+//***********************************************************************************************
+//***********************************************************************************************
+//***********************************************************************************************
+		
+
 		vector<pair<int, map<int, T>>> splitted_matrix = split_long_rows(spp3);
 		auto close_pairs = LSH::get_close_pairs_v1(splitted_matrix, sparse_csr.ncols, 128, 2);
 		vector<int> reordered_rows = Clustering::hierachical_clustering_v1(splitted_matrix, close_pairs, 256);
@@ -609,16 +623,17 @@ struct Preprocessor {
 
 
 
-		if (reordering_method == 2) {
-	//		cout << "start reordering sparse part" << endl;
-			reorder_sparse();
-		}
+		//PAOLO's CHANGE
+/***********************************************************************/		
+/***********************************************************************/		
+/***********************************************************************/		
 
-//		cout << tn << " " << sparse_csr1.nnz << " " << sparse_csr2.nnz << " " << sparse_csr3.nnz << " " <<  total_nnz << endl;
-		if (tn + sparse_csr1.nnz + sparse_csr2.nnz + sparse_csr3.nnz != total_nnz) {
-			cerr << "dense and sparse nnz incorrect!" << endl;
-			exit(-1);
-		}
+//		cout << "start reordering sparse part" << endl;
+		reorder_sparse();
+
+/***********************************************************************/		
+/***********************************************************************/		
+/***********************************************************************/		
 
 
 //		cout << "dense ratio: " << 1 - 1.0 * sparse_csr.nnz / total_nnz << endl;
