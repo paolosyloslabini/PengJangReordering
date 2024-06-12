@@ -26,7 +26,7 @@ ofstream fout;
 #define LENGTH (512/SROW_PER_TILE) // SP=128, DP<128
 
 template <class T>
-void reorder(SparseMatrixCSR<T> &sm, DenseMatrix<T> &dm, string filename) {
+void reorder(SparseMatrixCSR<T> &sm, DenseMatrix<T> &dm, string filename, string outfile) {
 	if (sm.ncols != dm.nrows) {
 		cerr << "matrix dimensions do not match!" << endl;
 		exit(-1);
@@ -39,7 +39,7 @@ void reorder(SparseMatrixCSR<T> &sm, DenseMatrix<T> &dm, string filename) {
 
 	static const int ITER = 8;
 
-	Preprocessor<float> pp(2, filename);
+	Preprocessor<float> pp(2, filename, outfile);
 	struct timeval ts, te;
 
 	gettimeofday(&ts, NULL);
@@ -61,7 +61,7 @@ int main(int argc, char *argv[]) {
 	DenseMatrix<float> dm;
 	dm.initOne(sm.get_ncols(), NCOL);
 
-	reorder(sm, dm, argv[1]);
+	reorder(sm, dm, argv[1], argv[2]);
 
 	return 0;
 }

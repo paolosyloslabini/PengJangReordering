@@ -105,10 +105,11 @@ struct Preprocessor {
 	int reordering_method;
 
 	string filename;
+	string outfile;
 
-	Preprocessor(int m, string fn):reordering_method(m) {
+	Preprocessor(int m, string fn, string of = ""):reordering_method(m) {
 		filename = fn;
-
+		outfile = of;
 	}
 
 
@@ -315,9 +316,9 @@ struct Preprocessor {
 //***********************************************************************************************
 //***********************************************************************************************
 //***********************************************************************************************
-	    std::cout << "REORDERED MATRIX: ";
-	    std::copy(reordered_rows2.begin(), reordered_rows2.end(), std::ostream_iterator<int>(std::cout, " "));
-	    std::cout << std::endl;
+	    std::ofstream out(outfile);
+        std::copy(reordered_rows2.begin(), reordered_rows2.end(), std::ostream_iterator<int>(out, "\n"));
+	    out.close();
 //***********************************************************************************************
 //***********************************************************************************************
 //***********************************************************************************************
