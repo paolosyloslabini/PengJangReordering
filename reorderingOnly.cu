@@ -45,7 +45,7 @@ void reorder(SparseMatrixCSR<T> &sm, DenseMatrix<T> &dm, string filename, string
 	gettimeofday(&ts, NULL);
 	pp.reordering_and_tiling(sm);
 	gettimeofday(&te, NULL);	
-	fout << "reordering time: " << 1e3 * (te.tv_sec - ts.tv_sec) + (te.tv_usec - ts.tv_usec) / 1e3 << endl;
+	cout << "REORDERING TIME: " << 1e3 * (te.tv_sec - ts.tv_sec) + (te.tv_usec - ts.tv_usec) / 1e3 << endl;
 	cudaCheckError();
 }
 
@@ -55,9 +55,11 @@ int main(int argc, char *argv[]) {
 	if (argc > 2)
 	sm.loadCOO(argv[1], true);
 	else sm.loadCOO(argv[1]);
+	std::cout << "Processing Matrix: " << argv[1] << std::endl;
+	std::cout << "Rows: " << sm.get_nrows() << " Cols: " << sm.get_ncols() << " NNZ: " << sm.get_nnz() << std::endl;
 
 
-	if (sm.get_nrows() < 1e4 || sm.get_nnz() < 1e5 || sm.get_ncols() * 512 > 3.9e9) { exit(-1); }
+	if (sm.get_ncols() * 512 > 3.9e9) { exit(-1); }
 	DenseMatrix<float> dm;
 	dm.initOne(sm.get_ncols(), NCOL);
 
