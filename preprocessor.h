@@ -19,6 +19,8 @@
 #include "config.h"
 #include "matrix.h"
 #include "clustering/clustering.h"
+#include <iterator>
+
 using namespace std;
 
 template <class T>

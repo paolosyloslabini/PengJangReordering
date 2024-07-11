@@ -14,6 +14,7 @@
 #include <cusparse.h>
 #include "matrix.h"
 #include "preprocessor.h"
+#include <iterator>
 
 using namespace std;
 
